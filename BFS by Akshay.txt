@@ -1,0 +1,60 @@
+
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long 
+#define lld long long double
+
+/*#include <ext/pb_ds/assoc_container.hpp>
+#include <ext/pb_ds/tree_policy.hpp>
+using namespace __gnu_pbds;*/
+
+#define loop(n) for(int i = 0; i < n; i++)
+#define loop2(n) for(int j = 0; j < m; j++)
+#define ve vector<ll>
+#define pb push_back
+#define pob pop_back
+#define mpr make_pair
+#define mp map<ll, ll>
+#define fast ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);
+#define pr pair<ll, ll>
+#define all(c) (c).begin(), (c).end()
+#define EACH(x, a) for (auto& x: a)
+
+void bfs(vector<int> adj[], int nodes, int edges, int src){ 
+    queue<int> q;  //creating the queue to processing all the nodes, like nodes and its neighbours.
+    vector<bool> visited (nodes, false); // creating bollean array to check if node is visited or not. 
+    //Firstly push the source node in to the queue 
+    q.push(src); // here we are pushing the source node in the queue from which we are goin toi start the travrersal.
+    visited[src] = true; //Now as src node is visited so we are marking it as visited.
+    
+
+    //vector<int> :: iterator it;
+    while(!q.empty()){ //Here we iterate the below instructions until the queue is empty.
+        int current = q.front(); //Now we store the front node in a variable. so we can prin it iout later. we stored it bcoz we are gonna pooping it out as its already visited , so after popped out we will not able to access(print) it out.
+        q.pop(); //after storing we are popping it out.
+        cout << current << " ";// printing the current(front) node.
+        
+        for(auto it : adj[current]){ // here is impoprtant thing, Now we are accessing the neighbours of the current node in its adjacency list.
+            if(!visited[it]) // if the node is already visited, we skip this iteration, else we push it into the queue.
+                q.push(it); // pushing teh node into the queue.
+                visited[it] = true; // and after pushing its obviously gonna be marked as visisted.
+        }
+    }
+   
+}
+
+int main() {
+    fast
+    int nodes, edges, src;
+    cin >> nodes >> edges >> src;
+    int x, y;
+    vector<int> adj[nodes];
+    for(int i = 0; i < edges; i++){
+        cin >> x >> y;
+        adj[x].pb(y);
+        adj[y].pb(x);
+    }
+    bfs(adj, nodes, edges, src);
+    
+    return 0;
+}
